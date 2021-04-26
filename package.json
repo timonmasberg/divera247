@@ -2,14 +2,15 @@
   "name": "divera247-api",
   "version": "1.0.0",
   "description": "Unofficial Divera 24/7 API Wrapper",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "build": "tsc"
+    "test": "ts-mocha -p tsconfig.testing.json src/**/*.test.ts",
+    "build": "tsc",
+    "publish": "npm run test && npm run build && npm publish"
   },
-  "types": "index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
-    "src/**/*"
+    "/lib"
   ],
   "repository": {
     "type": "git",
@@ -32,11 +33,13 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.16",
+    "@types/expect": "^24.3.0",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.37",
     "chai": "^4.3.4",
     "mocha": "^8.3.2",
     "nodemon": "^2.0.7",
+    "ts-mocha": "^8.0.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }

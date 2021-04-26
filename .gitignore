@@ -19,8 +19,8 @@ node_modules
 .node_repl_history
 
 typings/
-lib/*.js
-test/*.js
+lib
+
 *.map
 
 .idea
@@ -29,4 +29,3 @@ test/*.js
 .DS_Store
 Thumbs.db
 
-dist/**/*
