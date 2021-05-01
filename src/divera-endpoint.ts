@@ -20,8 +20,10 @@ export abstract class DiveraEndpoint {
       .then(((response: { data: ResponseType; }) => response.data))
   }
 
-  get<ResponseType>(resourcePath: string = ""): Promise<ResponseType> {
-    return axios.get<ResponseType>(this.apiUrl + resourcePath, this.axiosConfig)
+  get<ResponseType>(resourcePath: string = "", data?: {}): Promise<ResponseType> {
+    // Divera has GET endpoints that expect a body
+    return axios.get<ResponseType>(this.apiUrl + resourcePath, {...this.axiosConfig, data})
+      .then(((response: { data: ResponseType; }) => response.data))
   }
 
   delete<ResponseType>(resourcePath: string = ""): Promise<ResponseType> {

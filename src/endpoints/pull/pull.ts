@@ -2,15 +2,16 @@ import {Group} from "./models/group.model";
 import {DiveraEndpoint} from "../../divera-endpoint";
 import {getPropertyValueByPath} from "../../helpers/get-property-value-by-path.helper";
 import {GroupsMapper} from "./mapper/groups.mapper";
-import {GroupApiResult} from "./models/group-api-return.model";
+import {GroupApiResult} from "./models/group-api-result.model";
 
-export class PullAll extends DiveraEndpoint {
+
+export class Pull extends DiveraEndpoint {
   constructor(accessKey: string) {
-    super('pull/all/', accessKey);
+    super('v2/pull/', accessKey);
   }
 
   getGroups(returnSorted = false): Promise<Group[]> {
-    return this.get()
+    return this.get("all/")
       .then(data => {
         const group = getPropertyValueByPath<any, GroupApiResult>(data, "cluster", "group");
 
@@ -26,8 +27,8 @@ export class PullAll extends DiveraEndpoint {
   }
 
 
-  getByPath<ReturnType>(...keys: string[]): Promise<ReturnType> {
-    return this.get().then(data => getPropertyValueByPath<any, ReturnType>(data, ...keys));
+  geAllByPath<ReturnType>(...keys: string[]): Promise<ReturnType> {
+    return this.get("all/").then(data => getPropertyValueByPath<any, ReturnType>(data, ...keys));
   }
 }
 

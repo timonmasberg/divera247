@@ -1,5 +1,5 @@
 {
-  "name": "divera247-api",
+  "name": "divera247-api-unofficial",
   "version": "1.0.0",
   "description": "Unofficial Divera 24/7 API Wrapper",
   "main": "lib/index.js",
