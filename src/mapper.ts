@@ -5,7 +5,6 @@ export abstract class Mapper<ApiResultType, MappedType> {
 
   protected constructor(data: ApiResultType) {
     this._data = data;
-
   }
 
   sort(keyRanking: string[]): Mapper<ApiResultType, MappedType> {

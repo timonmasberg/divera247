@@ -16,25 +16,25 @@ export abstract class DiveraEndpoint {
   }
 
   post<ResponseType>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.post<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.post<{ data: ResponseType }>(this.apiUrl + resourcePath, payload, this.axiosConfig)
       .then(((response: { data: ResponseType; }) => response.data))
   }
 
   get<ResponseType>(resourcePath = "", data?: {}): Promise<ResponseType> {
     // Divera has GET endpoints that expect a body
-    return axios.get<ResponseType>(this.apiUrl + resourcePath, {...this.axiosConfig, data})
+    return axios.get<{ data: ResponseType }>(this.apiUrl + resourcePath, {...this.axiosConfig, data})
       .then(((response: { data: ResponseType; }) => response.data))
   }
 
   delete<ResponseType>(resourcePath = ""): Promise<ResponseType> {
-    return axios.delete<ResponseType>(this.apiUrl + resourcePath, this.axiosConfig)
+    return axios.delete<{ data: ResponseType }>(this.apiUrl + resourcePath, this.axiosConfig)
   }
 
   patch<ResponseType>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.patch<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.patch<{ data: ResponseType }>(this.apiUrl + resourcePath, payload, this.axiosConfig)
   }
 
   put<ResponseType>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.put<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.put<{ data: ResponseType }>(this.apiUrl + resourcePath, payload, this.axiosConfig)
   }
 }

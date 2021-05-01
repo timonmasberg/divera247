@@ -11,7 +11,7 @@ export class Pull extends DiveraEndpoint {
   }
 
   getGroups(returnSorted = false): Promise<Group[]> {
-    return this.get("all/")
+    return this.get<GroupApiResult>("all/")
       .then(data => {
         const group = getPropertyValueByPath<any, GroupApiResult>(data, "cluster", "group");
 
