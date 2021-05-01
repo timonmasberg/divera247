@@ -6,7 +6,7 @@ import {GroupApiResult} from "./models/group-api-return.model";
 
 export class PullAll extends DiveraEndpoint {
   constructor(accessKey: string) {
-    super(accessKey, 'pull/all/');
+    super('pull/all/', accessKey);
   }
 
   getGroups(returnSorted = false): Promise<Group[]> {

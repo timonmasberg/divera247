@@ -6,10 +6,13 @@ export abstract class DiveraEndpoint {
   apiUrl: string;
   axiosConfig = {} as AxiosRequestConfig;
 
-  protected constructor(accessKey: string,
-                        endpointPath: string) {
+  protected constructor(endpointPath: string,
+                        accessKey?: string) {
     this.apiUrl = DIVERA_API_BASE_URL + endpointPath;
-    this.axiosConfig.params = {accessKey};
+
+    if (accessKey) {
+      this.axiosConfig.params = {accessKey};
+    }
   }
 
   post<ResponseType>(payload: any, resourcePath: string = ""): Promise<ResponseType> {
