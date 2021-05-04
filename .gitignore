@@ -29,5 +29,5 @@ lib
 .DS_Store
 Thumbs.db
 
-integration/
+src/integrations/
 

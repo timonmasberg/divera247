@@ -1,7 +1,7 @@
 # Divera 24/7 API Wrapper
 
-An unofficial Node package to interface with Divera 24/7. This is not in any way affiliated with divera247.com / DIVERA
-GmbH.<br>
+An unofficial Node package to interface with Divera 24/7 by wrapping the mess the API is into a usable library. This is
+not in any way affiliated with divera247.com / DIVERA GmbH.<br>
 Official Divera API Documentation can be found here: https://api.divera247.com/
 
 ## Current features finished and planned
@@ -55,10 +55,10 @@ const accessToken = await auth.getAccessToken("username", "password");
 const diveraClient = new DiveraClient(accessToken);
 ```
 
-### Pull All (`/v2/pull/all/`)
+### Pull All (`/v2/pull/all`)
 
 The Divera API is (imo) kind of badly designed in many aspects. E.g. there is an endpoint that returns all the data
-related to an organization. If you want to retrieve specific data, such as groups, you always need to query `/pull/all/`
+related to an organization. If you want to retrieve specific data, such as groups, you always need to query `/pull/all`
 which returns pretty much everything. The `PullAll` class wraps this mess and lets you choose and extract specific data.
 
 ```js
@@ -74,7 +74,7 @@ const groups = await pullAllEndpoint.getGroups();
 const sortedGroups = await pullAllEndpoint.getGroups(true);
 ```
 
-### Alarm (`/v2/alarms/`)
+### Alarm (`/v2/alarms`)
 
 ```js
 const alarmsEndpoint = diveraClient.factorAlarmsEndpoint();
