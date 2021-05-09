@@ -1,53 +1,127 @@
-import {CreateAlarm} from "./models/create-alarm.model";
+import {
+  Alarm,
+  CreateAlarm,
+  Instructions,
+} from "./models/create-alarm.model";
+import {AlarmNotificationType} from "./enums/alarm-notification-type-.enum";
+import {
+  GroupMapping,
+  MappedValue,
+  UserMapping,
+  VehicleMapping
+} from "./types/instruction-mapping.types";
 
 
 export class AlarmBuilder {
-  private newAlarm = {} as CreateAlarm;
+  private alarm = {} as Alarm;
+  private instructions = {} as Instructions;
+
+  notificationType(type: AlarmNotificationType): AlarmBuilder {
+    this.alarm.notification_type = type;
+
+    return this;
+  }
 
   isPriority(): AlarmBuilder {
     return this;
   }
 
-  details(title: string, text: string, type: string): AlarmBuilder {
-    this.newAlarm.Alarm.title = title;
-    this.newAlarm.Alarm.text = text;
-    this.newAlarm.Alarm.type = type;
+  details(title: string, text: string = ""): AlarmBuilder {
+    this.alarm.title = title;
+    this.alarm.text = text;
 
     return this;
   }
 
   foreignId(foreignId: string): AlarmBuilder {
-    this.newAlarm.Alarm.foreign_id = foreignId;
+    this.alarm.foreign_id = foreignId;
 
     return this
   }
 
   address(address: string): AlarmBuilder {
-    this.newAlarm.Alarm.address = address;
+    this.alarm.address = address;
 
     return this;
   }
 
   coordinates(lat: number, lng: number): AlarmBuilder {
-    this.newAlarm.Alarm.lat = lat;
-    this.newAlarm.Alarm.lng = lng;
+    this.alarm.lat = lat;
+    this.alarm.lng = lng;
 
     return this;
   }
 
-  groups(ids: number[]): AlarmBuilder {
-    this.newAlarm.Alarm.group = ids;
+  groups(values: MappedValue[], mapping: GroupMapping): AlarmBuilder {
+    this.alarm.group = values;
+
+    if (this.instructions.group?.mapping) {
+      this.instructions.group.mapping = mapping;
+    } else {
+      this.instructions.group = {mapping}
+    }
 
     return this;
   }
 
-  vehicles(ids: number[]): AlarmBuilder {
-    this.newAlarm.Alarm.vehicle = ids;
+  users(values: MappedValue[], mapping: UserMapping): AlarmBuilder {
+    this.alarm.user_cluster_relation = values;
+
+    if (this.instructions.user_cluster_relation?.mapping) {
+      this.instructions.user_cluster_relation.mapping = mapping;
+    } else {
+      this.instructions.user_cluster_relation = {mapping}
+    }
+
+    return this;
+  }
+
+  vehicles(values: MappedValue[], mapping: VehicleMapping): AlarmBuilder {
+    this.alarm.vehicle = values;
+
+    if (this.instructions.vehicle?.mapping) {
+      this.instructions.vehicle.mapping = mapping;
+    } else {
+      this.instructions.vehicle = {mapping}
+    }
+
+    return this;
+  }
+
+  sendSMS(): AlarmBuilder {
+    this.alarm.send_sms = true;
+
+    return this;
+  }
+
+  sendPush(): AlarmBuilder {
+    this.alarm.send_sms = true;
+
+    return this;
+  }
+
+  sendCall(): AlarmBuilder {
+    this.alarm.send_call = true;
+
+    return this;
+  }
+
+  sendPager(): AlarmBuilder {
+    this.alarm.send_pager = true;
+
+    return this;
+  }
+
+  sendMail(): AlarmBuilder {
+    this.alarm.send_mail = true;
 
     return this;
   }
 
   build(): CreateAlarm {
-    return this.newAlarm;
+    return {
+      Alarm: this.alarm,
+      instructions: this.instructions
+    };
   }
 }

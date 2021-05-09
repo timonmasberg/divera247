@@ -3,7 +3,7 @@ import {CreateAlarm} from "./models/create-alarm.model";
 
 export class Alarms extends DiveraEndpoint {
   constructor(accessKey: string) {
-    super('v2/alarms/', accessKey);
+    super('v2/alarms', accessKey);
   }
 
   createAlarm(alarm: CreateAlarm): Promise<any> {
