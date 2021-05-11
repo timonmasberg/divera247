@@ -10,12 +10,12 @@ Below are all the request types the package supports currently (ticked) and the 
 but planned to be.
 
 - [ ] Alarm
-  - [ ] Create Alarm
+  - [x] Create Alarm
   - [ ] Read Alarm
   - [ ] Delete Alarm
   - [ ] Alarm User Responses
 - [ ] Pull all
-  - [ ] Read Groups
+  - [x] Read Groups
 
 ## Getting Started
 
@@ -27,8 +27,6 @@ _Contributing_.
 If you, for whatever reason, want to use this package fronted wise, it is possible since `axios` supports browsers.
 
 ### Installing
-
-_not published yet_
 
 ```shell
 npm i divera247-api-unofficial
@@ -93,23 +91,30 @@ const alarm = new AlarmBuilder()
   // set address of the scene
   .address("Foostreet 1337")
   // set coordinates (lat, lng) of the scene
-  .coordinates(50, 40)
-  // set unit ids that should receive the alarm
-  .groups([1, 2, 3])
-  .vehicles([1, 2, 3])
+  .coordinates(50.321, 10.123)
+  // set units mapped by their ids
+  .groups([1, 2, 3], "id")
+  .vehicles([1, 2, 3], "id")
   // set a title, text and a type
-  .details("title", "description", "type")
+  .details("title", "description")
   // set prioity flag to true
   .isPriority()
+  // send as push alarm
+  .sendPush()
   // set foreign operation id (e.g. from external software)
-  .foreignId()
+  .foreignId("external id 123")
   .build()
 ```
 
 Call the Divera API
 
 ```js
-await alarmsEndpoint.createAlarm(alarm);
+const diveraResp = await alarmsEndpoint.createAlarm(alarm);
+```
+
+<b>Delete Alarm</b>
+```js
+await alarmsEndpoint.deleteAlarm(diveraResp.data.id);
 ```
 
 ## Contributing
