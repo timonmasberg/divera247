@@ -9,4 +9,8 @@ export class Alarms extends DiveraEndpoint {
   createAlarm(alarm: CreateAlarm): Promise<any> {
     return this.post(alarm)
   }
+
+  deleteAlarm(alarmId: string): Promise<any> {
+    return this.delete("/" + alarmId);
+  }
 }

@@ -3,7 +3,7 @@ import {
   CreateAlarm,
   Instructions,
 } from "./models/create-alarm.model";
-import {AlarmNotificationType} from "./enums/alarm-notification-type-.enum";
+import {AlarmNotificationType} from "./enums/alarm-notification-type.enum";
 import {
   GroupMapping,
   MappedValue,
@@ -95,7 +95,7 @@ export class AlarmBuilder {
   }
 
   sendPush(): AlarmBuilder {
-    this.alarm.send_sms = true;
+    this.alarm.send_push = true;
 
     return this;
   }
@@ -114,6 +114,12 @@ export class AlarmBuilder {
 
   sendMail(): AlarmBuilder {
     this.alarm.send_mail = true;
+
+    return this;
+  }
+
+  visibleForNonAlertedUsers(): AlarmBuilder {
+    this.alarm.notification_filter_access = true;
 
     return this;
   }
