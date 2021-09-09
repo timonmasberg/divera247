@@ -4,6 +4,8 @@ An unofficial Node package to interface with Divera 24/7 by wrapping the mess th
 not in any way affiliated with divera247.com / DIVERA GmbH.<br>
 Official Divera API Documentation can be found here: https://api.divera247.com/
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=timonmasberg_divera247&metric=alert_status)](https://sonarcloud.io/dashboard?id=timonmasberg_divera247)
+
 ## Current features finished and planned
 
 Below are all the request types the package supports currently (ticked) and the ones that are currently not implemented
@@ -14,9 +16,13 @@ but planned to be.
   - [ ] Read Alarm
   - [ ] Delete Alarm
   - [ ] Alarm User Responses
+  - [ ] Archive Alarm
 - [ ] Pull all
   - [x] Read Groups
-
+- [ ] Messages
+  - [ ] Write Messages 
+  - [ ] Read Messages
+  
 ## Getting Started
 
 These instructions will show you how to use this package in your project. If you want to contribute, check
