@@ -1,13 +1,9 @@
-import {DiveraEndpoint} from "../../divera-endpoint";
 import {LoginApiResult} from "../pull/models/login-api-resultmodel";
+import {BaseClient} from "../../base-client";
 
-export class Auth extends DiveraEndpoint {
-  constructor() {
-    super('v2/auth/');
-  }
-
+export class Auth extends BaseClient {
   getAccessToken(username: string, password: string): Promise<string> {
-    return this.get<LoginApiResult>('login/', {
+    return this.get<LoginApiResult>('v2/auth/login/', {
       username,
       password,
       jwt: false
