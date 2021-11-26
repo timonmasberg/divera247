@@ -2,44 +2,42 @@ import axios, {AxiosRequestConfig} from "axios";
 
 const DIVERA_API_BASE_URL = "https://divera247.com/api/"
 
-export abstract class DiveraEndpoint {
-  apiUrl: string;
-  axiosConfig = {} as AxiosRequestConfig;
+export abstract class BaseClient {
+  private axiosConfig = {} as AxiosRequestConfig;
 
-  protected constructor(endpointPath: string,
-                        accessKey?: string) {
-    this.apiUrl = DIVERA_API_BASE_URL + endpointPath;
-
+  constructor(accessKey: string) {
     if (accessKey) {
       this.axiosConfig.params = {
-        accesskey: accessKey
+        accessKey,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       };
     }
   }
 
   protected post<ResponseType = void>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.post<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.post<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
       .then(((response) => response.data));
   }
 
   protected get<ResponseType>(resourcePath = "", data?: {}): Promise<ResponseType> {
-    // Divera has GET endpoints that expect a body
-    return axios.get<ResponseType>(this.apiUrl + resourcePath, {...this.axiosConfig, data})
+    // Divera has GET endpoints that expect a body :)
+    return axios.get<ResponseType>(DIVERA_API_BASE_URL + resourcePath, {...this.axiosConfig, data})
       .then(((response) => response.data));
   }
 
   protected delete<ResponseType = void>(resourcePath = ""): Promise<ResponseType> {
-    return axios.delete<ResponseType>(this.apiUrl + resourcePath, this.axiosConfig)
+    return axios.delete<ResponseType>(DIVERA_API_BASE_URL + resourcePath, this.axiosConfig)
       .then(((response) => response.data));
   }
 
   protected patch<ResponseType>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.patch<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.patch<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
       .then(((response) => response.data));
   }
 
   protected put<ResponseType>(payload: any, resourcePath = ""): Promise<ResponseType> {
-    return axios.put<ResponseType>(this.apiUrl + resourcePath, payload, this.axiosConfig)
+    return axios.put<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
       .then(((response) => response.data));
   }
 }
