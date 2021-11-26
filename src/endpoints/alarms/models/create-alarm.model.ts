@@ -54,4 +54,3 @@ export interface Instructions {
   user_cluster_relation?: { mapping?: UserMapping };
   vehicle?: { mapping?: VehicleMapping }
 }
-

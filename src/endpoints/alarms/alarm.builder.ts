@@ -1,8 +1,3 @@
-import {
-  Alarm,
-  CreateAlarm,
-  Instructions,
-} from "./models/create-alarm.model";
 import {AlarmNotificationType} from "./enums/alarm-notification-type.enum";
 import {
   GroupMapping,
@@ -10,6 +5,7 @@ import {
   UserMapping,
   VehicleMapping
 } from "./types/instruction-mapping.types";
+import {Alarm, CreateAlarm, Instructions} from "./models/create-alarm.model";
 
 
 export class AlarmBuilder {
