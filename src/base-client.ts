@@ -1,4 +1,5 @@
 import axios, {AxiosRequestConfig} from "axios";
+import {DiveraResponse} from "./endpoints/divera-response.model";
 
 const DIVERA_API_BASE_URL = "https://divera247.com/api/"
 
@@ -6,13 +7,21 @@ export abstract class BaseClient {
   private axiosConfig = {} as AxiosRequestConfig;
 
   constructor(accessKey: string) {
-    if (accessKey) {
-      this.axiosConfig.params = {
-        accessKey,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      };
-    }
+    this.axiosConfig.params = {
+      accessKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    };
+  }
+
+  static getAccessToken(username: string, password: string): Promise<string> {
+    return axios.get<DiveraResponse>('v2/auth/login/', {
+      data: {
+        username,
+        password,
+        jwt: false
+      }
+    }).then(response => response.data.data.user?.access_token);
   }
 
   protected post<ResponseType = void>(payload: any, resourcePath = ""): Promise<ResponseType> {
