@@ -10,4 +10,16 @@ export class Alarms extends BaseClient {
   deleteAlarm(alarmId: string): Promise<DiveraResponse> {
     return this.delete("alarms/" + alarmId);
   }
+
+  closeAlarm(alarmId: string, report = ""): Promise<DiveraResponse> {
+    const payload = {
+      Alarm: {
+        closed: true,
+        report,
+        ts: 0
+      }
+    }
+
+    return this.post("alarms/close/" + alarmId, payload);
+  }
 }
