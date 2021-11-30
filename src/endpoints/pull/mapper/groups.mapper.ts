@@ -1,9 +1,9 @@
 import {Mapper} from "../../../mapper";
 import {Group} from "../models/group.model";
-import {GroupApiResult} from "../models/group-api-result.model";
+import {GroupEntry, Groups} from "../models/group-api-result.model";
 
-export class GroupsMapper extends Mapper<GroupApiResult, Group[]> {
-  constructor(data: GroupApiResult) {
+export class GroupsMapper extends Mapper<Groups, Group[]> {
+  constructor(data: Groups) {
     super(data);
   }
 
@@ -12,7 +12,7 @@ export class GroupsMapper extends Mapper<GroupApiResult, Group[]> {
 
     Object.entries(this._data).forEach(entry => {
       const [groupId, data] = entry;
-      const group = GroupsMapper.factorGroupFromEntry(groupId, data);
+      const group = GroupsMapper.getGroupFromEntry(groupId, data);
 
       groups.push(group);
     });
@@ -20,7 +20,7 @@ export class GroupsMapper extends Mapper<GroupApiResult, Group[]> {
     return groups;
   }
 
-  private static factorGroupFromEntry(id: string, data: any): Group {
+  private static getGroupFromEntry(id: string, data: GroupEntry): Group {
     return {
       id,
       name: data.name,
