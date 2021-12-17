@@ -22,7 +22,7 @@ export class Pull extends BaseClient {
       })
   }
 
-  geAllByPath<ReturnType>(...keys: string[]): Promise<ReturnType> {
+  getAllByPath<ReturnType>(...keys: string[]): Promise<ReturnType> {
     return this.get<{ data: any }>("pull/all/")
       .then(res => res.data)
       .then(data => getPropertyValueByPath<any, ReturnType>(data, ...keys));
