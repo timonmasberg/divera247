@@ -1,4 +1,4 @@
-import {LoginApiResult} from "../pull/models/login-api-resultmodel";
+import {LoginApiResult} from "./models/login-api-result.model";
 import {BaseClient} from "../../base-client";
 
 export class Auth extends BaseClient {
@@ -7,6 +7,6 @@ export class Auth extends BaseClient {
       username,
       password,
       jwt: false
-    }).then(data => data.user.access_token);
+    }).then(resp => resp.data.user?.access_token);
   }
 }

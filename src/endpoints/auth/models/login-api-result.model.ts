@@ -1,4 +1,6 @@
-export interface LoginApiResult {
+import {DiveraResponse} from "../../divera-response.model";
+
+export type LoginApiResult = DiveraResponse<{
   user: {
     autologin: boolean;
     auth_key: string;
@@ -11,4 +13,4 @@ export interface LoginApiResult {
     shortname: string;
     name: string;
   }
-}
+}>

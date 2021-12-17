@@ -14,11 +14,13 @@ but planned to be.
 - [ ] Alarm
   - [x] Create Alarm
   - [ ] Read Alarm
-  - [ ] Delete Alarm
+  - [x] Delete Alarm
+  - [x] Close Alarm
   - [ ] Alarm User Responses
   - [ ] Archive Alarm
 - [ ] Pull all
   - [x] Read Groups
+  - [x] Read specific value by key
 - [ ] Messages
   - [ ] Write Messages 
   - [ ] Read Messages
@@ -49,48 +51,57 @@ If you want to Authorize by user credentials (e.g. with a system user) you can g
 class.
 
 ```js
-const auth = DiveraClient.factorAuthEndpoint();
-const accessToken = await auth.getAccessToken("username", "password");
+const token = DiveraClient.getAccessToken("username", "password");
 ```
 
 ### Declare the client
 
 ```js
-const diveraClient = new DiveraClient(accessToken);
+const diveraClient = new DiveraClient(token);
 ```
 
 ### Pull All (`/v2/pull/all`)
 
 The Divera API is (imo) kind of badly designed in many aspects. E.g. there is an endpoint that returns all the data
 related to an organization. If you want to retrieve specific data, such as groups, you always need to query `/pull/all`
-which returns pretty much everything. The `PullAll` class wraps this mess and lets you choose and extract specific data.
+which returns pretty much everything there is for a tenant. 
 
+<b>Read specific data</b>
 ```js
-const pullAllEndpoint = diveraClient.factorPullAllEndpoint();
-```
+const groups = await diveraClient.getGroups();
 
+// Get Groups sorted by Divera provided `groupsorting`
+const sortedGroups = await diveraClient.getGroups(true);
+```
 <b>Groups</b>
 
 ```js
-const groups = await pullAllEndpoint.getGroups();
+const groups: Group[] = await diveraClient.getGroups();
 
 // Get Groups sorted by Divera provided `groupsorting`
-const sortedGroups = await pullAllEndpoint.getGroups(true);
+const sortedGroups = await diveraClient.getGroups(true);
 ```
 
 ### Alarm (`/v2/alarms`)
 
-```js
-const alarmsEndpoint = diveraClient.factorAlarmsEndpoint();
-```
-
 <b>Create Alarm</b>
 
+The CreateAlarm model represents the payload to the Divera API. `Alarm` for the alarm details, `Instructions` to tell if the groups, vehicles etc are passed as id or name.
 ```ts
-const alarm: CreateAlarm = {}
+const alarm: CreateAlarm = {
+    Alarm: {
+        title: "This is an alarm!!!",
+        group: [1234],
+        ...
+    },
+    Instructions: {
+        group: "id",
+        ...
+    }
+}
 ```
 
-Or use the builder:
+A more convenient way is to use the builder:
 
 ```js
 const alarm = new AlarmBuilder()
@@ -109,18 +120,19 @@ const alarm = new AlarmBuilder()
   .sendPush()
   // set foreign operation id (e.g. from external software)
   .foreignId("external id 123")
+  // ...
   .build()
 ```
 
-Call the Divera API
+Create, Close and Delete an Alarm
 
 ```js
-const diveraResp = await alarmsEndpoint.createAlarm(alarm);
-```
-
-<b>Delete Alarm</b>
-```js
-await alarmsEndpoint.deleteAlarm(diveraResp.data.id);
+// Create an alarm
+const resp = await diveraClient.createAlarm(alarm);
+// Close an alarm with an optional report
+await diveraClient.closeAlarm(resp.data.id, "some report");
+// Delete the alarm
+await diveraClient.deleteAlarm(resp.data.id);
 ```
 
 ## Contributing
@@ -128,8 +140,7 @@ await alarmsEndpoint.deleteAlarm(diveraResp.data.id);
 If you have a feature request, or you caught an error please create an issue.
 
 If you want to create a new endpoint create a new folder under ./src/endpoints with the name of the root path of the
-endpoint and extend the class (should be named the same) with `DiveraEndpoint`. Create interfaces (put it in models
-folder) for every external use-case.
+endpoint and extend the `BaseClient`. Create interfaces (put it in models folder) for every external use-case.
 
 ## License
 
