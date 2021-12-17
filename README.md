@@ -1,6 +1,6 @@
 # Divera 24/7 API Wrapper
 
-An unofficial Node package to interface with Divera 24/7 by wrapping the mess the API is into a usable library. This is
+An unofficial Node package to interface with Divera 24/7 by wrapping the mess the API is into a usable library. This project is
 not in any way affiliated with divera247.com / DIVERA GmbH.<br>
 Official Divera API Documentation can be found here: https://api.divera247.com/
 
@@ -47,8 +47,7 @@ After installing the package you can use it as shown below.
 
 ### Authorize
 
-If you want to Authorize by user credentials (e.g. with a system user) you can get an access token with the `Auth`
-class.
+Retrieve the access token with user credentials (e.g. with a system user).
 
 ```js
 const token = DiveraClient.getAccessToken("username", "password");
@@ -66,12 +65,10 @@ The Divera API is (imo) kind of badly designed in many aspects. E.g. there is an
 related to an organization. If you want to retrieve specific data, such as groups, you always need to query `/pull/all`
 which returns pretty much everything there is for a tenant. 
 
-<b>Read specific data</b>
+<b>Read specific data</b><br>
+Provide the path of the specific property you want to extract from the `/pull/all` response. 
 ```js
-const groups = await diveraClient.getGroups();
-
-// Get Groups sorted by Divera provided `groupsorting`
-const sortedGroups = await diveraClient.getGroups(true);
+const user = await diveraClient.getAllByPath<{firstname: string, lastname: string}>("cluster", "user");
 ```
 <b>Groups</b>
 
