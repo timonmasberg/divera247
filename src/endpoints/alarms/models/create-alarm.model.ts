@@ -12,6 +12,15 @@ export interface CreateAlarm {
   instructions?: Instructions
 }
 
+interface IntMap<T> {
+  [key: number]: T;
+}
+
+export interface GetAlarm {
+  items: IntMap<Alarm>
+  sorting: number[]
+}
+
 export interface Alarm {
   foreign_id?: string;
   alarmcode_id?: number;
