@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {DiveraResponse} from "./endpoints/divera-response.model";
 
-const DIVERA_API_BASE_URL = "https://divera247.com/api/"
+const DIVERA_API_BASE_URL = "https://app.divera247.com/api/"
 
 export abstract class BaseClient {
   private axiosConfig = {} as AxiosRequestConfig;
