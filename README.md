@@ -13,14 +13,16 @@ but planned to be.
 
 - [ ] Alarm
   - [x] Create Alarm
+  - [x] Read all Alarms
   - [ ] Read Alarm
   - [x] Delete Alarm
   - [x] Close Alarm
   - [ ] Alarm User Responses
-  - [ ] Archive Alarm
+  - [x] Archive Alarm
 - [ ] Pull all
   - [x] Read Groups
   - [x] Read specific value by key
+  - [x] Read vehicle status
 - [ ] Messages
   - [ ] Write Messages 
   - [ ] Read Messages
