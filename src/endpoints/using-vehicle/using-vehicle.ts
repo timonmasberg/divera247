@@ -1,5 +1,4 @@
 import {BaseClient} from "../../base-client";
-import {Group} from "../pull/models/group.model";
 import {SendStatusModel} from "./send-status.model";
 import {SimpleDiveraResponse} from "../divera-response.model";
 

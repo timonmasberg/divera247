@@ -9,5 +9,4 @@ export interface Vehicle {
   fmsstatus_ts: number;
   lat: number;
   lng: number;
-  //TODO: crew missing
 }

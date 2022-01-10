@@ -1,5 +1,5 @@
 import {BaseClient} from "../../base-client";
-import {Alarm, CreateAlarm, GetAlarm} from "./models/create-alarm.model";
+import {CreateAlarm, GetAlarm} from "./models/create-alarm.model";
 import {DiveraResponse} from "../divera-response.model";
 
 export class Alarms extends BaseClient {
