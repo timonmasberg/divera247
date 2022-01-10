@@ -26,7 +26,8 @@ but planned to be.
 - [ ] Messages
   - [ ] Write Messages 
   - [ ] Read Messages
-  
+- [ ] Vehicle
+  - [x] Set status
 ## Getting Started
 
 These instructions will show you how to use this package in your project. If you want to contribute, check
