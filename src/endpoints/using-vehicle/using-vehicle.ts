@@ -1,5 +1,5 @@
 import {BaseClient} from "../../base-client";
-import {SendStatusModel} from "./send-status.model";
+import {SendStatus} from "./send-status.model";
 import {SimpleDiveraResponse} from "../divera-response.model";
 
 export class UsingVehicle extends BaseClient {
@@ -13,7 +13,7 @@ export class UsingVehicle extends BaseClient {
    */
   setVehicleStatus(vehicleId: number, statusId: number, statusNote?: string,
                    lat?: number, lng?: number): Promise<SimpleDiveraResponse> {
-    let sendData: SendStatusModel = {
+    let sendData: SendStatus = {
       status_id: statusId
     };
     if (statusNote || statusNote === "") {
