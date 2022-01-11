@@ -43,7 +43,7 @@ export abstract class BaseClient {
       .then(((response) => response.data));
   }
 
-  protected put<ResponseType>(resourcePath: string, payload: any): Promise<ResponseType> {
+  protected put<ResponseType>(resourcePath: string, payload: any = {}): Promise<ResponseType> {
     return axios.put<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
       .then(((response) => response.data));
   }

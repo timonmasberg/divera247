@@ -24,7 +24,7 @@ export class Alarms extends BaseClient {
   }
 
   archiveAlarm(alarmId: number | string): Promise<DiveraResponse> {
-    return this.put<DiveraResponse>("v2/alarms/archive/" + alarmId, {});
+    return this.put<DiveraResponse>("v2/alarms/archive/" + alarmId);
   }
 
   getAlarms(): Promise<DiveraResponse<GetAlarm>> {
