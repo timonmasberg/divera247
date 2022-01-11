@@ -143,7 +143,7 @@ await diveraClient.archiveAlarm(resp.data.id);
 await diveraClient.deleteAlarm(resp.data.id);
 ```
 
-### Alarm (`/v2/using-vehicles`)
+### Vehicles (`/v2/using-vehicles`)
 
 <b>Set Vehicle Status</b>
 ```js
