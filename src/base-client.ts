@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {DiveraResponse} from "./endpoints/divera-response.model";
 
-const DIVERA_API_BASE_URL = "https://divera247.com/api/"
+const DIVERA_API_BASE_URL = "https://app.divera247.com/api/"
 
 export abstract class BaseClient {
   private axiosConfig = {} as AxiosRequestConfig;
@@ -43,7 +43,7 @@ export abstract class BaseClient {
       .then(((response) => response.data));
   }
 
-  protected put<ResponseType>(resourcePath: string, payload: any): Promise<ResponseType> {
+  protected put<ResponseType>(resourcePath: string, payload: any = {}): Promise<ResponseType> {
     return axios.put<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
       .then(((response) => response.data));
   }

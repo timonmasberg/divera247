@@ -1,5 +1,5 @@
 import {BaseClient} from "../../base-client";
-import {CreateAlarm} from "./models/create-alarm.model";
+import {CreateAlarm, GetAlarm} from "./models/create-alarm.model";
 import {DiveraResponse} from "../divera-response.model";
 
 export class Alarms extends BaseClient {
@@ -21,5 +21,13 @@ export class Alarms extends BaseClient {
     }
 
     return this.post("alarms/close/" + alarmId, payload);
+  }
+
+  archiveAlarm(alarmId: number | string): Promise<DiveraResponse> {
+    return this.put<DiveraResponse>("v2/alarms/archive/" + alarmId);
+  }
+
+  getAlarms(): Promise<DiveraResponse<GetAlarm>> {
+    return this.get<DiveraResponse<GetAlarm>>("v2/alarms");
   }
 }

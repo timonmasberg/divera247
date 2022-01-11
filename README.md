@@ -13,18 +13,21 @@ but planned to be.
 
 - [ ] Alarm
   - [x] Create Alarm
+  - [x] Read all Alarms
   - [ ] Read Alarm
   - [x] Delete Alarm
   - [x] Close Alarm
   - [ ] Alarm User Responses
-  - [ ] Archive Alarm
+  - [x] Archive Alarm
 - [ ] Pull all
   - [x] Read Groups
   - [x] Read specific value by key
+  - [x] Read vehicle status
 - [ ] Messages
   - [ ] Write Messages 
   - [ ] Read Messages
-  
+- [ ] Vehicle
+  - [x] Set status
 ## Getting Started
 
 These instructions will show you how to use this package in your project. If you want to contribute, check
@@ -121,15 +124,36 @@ const alarm = new AlarmBuilder()
   .build()
 ```
 
-Create, Close and Delete an Alarm
+<b>Retrieve alarms</b>
+
+```js
+const alarms = await diveraClient.getAlarms();
+```
+
+<b>Create, Close, Archive and Delete an Alarm</b>
 
 ```js
 // Create an alarm
 const resp = await diveraClient.createAlarm(alarm);
 // Close an alarm with an optional report
 await diveraClient.closeAlarm(resp.data.id, "some report");
+// Archive an alarm
+await diveraClient.archiveAlarm(resp.data.id);
 // Delete the alarm
 await diveraClient.deleteAlarm(resp.data.id);
+```
+
+### Alarm (`/v2/using-vehicles`)
+
+<b>Set Vehicle Status</b>
+```js
+const vehicleId = 1;
+const vehicleStatus = 3;
+const optionalPosition = {
+    lat: 53.551086,
+    lng: 9.993682
+}
+await diveraClient.setVehicleStatus(vehicleId, vehicleStatus, "optional status note", optionalPosition);
 ```
 
 ## Contributing
