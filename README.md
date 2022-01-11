@@ -124,15 +124,36 @@ const alarm = new AlarmBuilder()
   .build()
 ```
 
-Create, Close and Delete an Alarm
+<b>Retrieve alarms</b>
+
+```js
+const alarms = await diveraClient.getAlarms();
+```
+
+<b>Create, Close, Archive and Delete an Alarm</b>
 
 ```js
 // Create an alarm
 const resp = await diveraClient.createAlarm(alarm);
 // Close an alarm with an optional report
 await diveraClient.closeAlarm(resp.data.id, "some report");
+// Archive an alarm
+await diveraClient.archiveAlarm(resp.data.id);
 // Delete the alarm
 await diveraClient.deleteAlarm(resp.data.id);
+```
+
+### Alarm (`/v2/using-vehicles`)
+
+<b>Set Vehicle Status</b>
+```js
+const vehicleId = 1;
+const vehicleStatus = 3;
+const optionalPosition = {
+    lat: 53.551086,
+    lng: 9.993682
+}
+await diveraClient.setVehicleStatus(vehicleId, vehicleStatus, "optional status note", optionalPosition);
 ```
 
 ## Contributing
