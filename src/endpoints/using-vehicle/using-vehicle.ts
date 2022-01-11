@@ -11,8 +11,8 @@ export class UsingVehicle extends BaseClient {
    * @param lat if value is undefined latitude of vehicle will not be changed
    * @param lng if value is undefined latitude of vehicle will not be changed
    */
-  setVehicleStatus(vehicleId: number, statusId: number, statusNote: string | undefined = undefined,
-                   lat: number | undefined = undefined, lng: number | undefined = undefined): Promise<SimpleDiveraResponse> {
+  setVehicleStatus(vehicleId: number, statusId: number, statusNote?: string,
+                   lat?: number, lng?: number): Promise<SimpleDiveraResponse> {
     let sendData: SendStatusModel = {
       status_id: statusId
     };
