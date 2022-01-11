@@ -8,23 +8,23 @@ export class UsingVehicle extends BaseClient {
    * @param vehicleId the id of the vehicle
    * @param statusId the new status of vehicle
    * @param statusNote if value is undefined note of vehicle will not be changed
-   * @param lat if value is undefined latitude of vehicle will not be changed
-   * @param lng if value is undefined latitude of vehicle will not be changed
+   * @param position if value is undefined latitude and longitude of vehicle will not be changed
    */
   setVehicleStatus(vehicleId: number, statusId: number, statusNote?: string,
-                   lat?: number, lng?: number): Promise<SimpleDiveraResponse> {
+                   position?: {lat: number, lng: number}): Promise<SimpleDiveraResponse> {
     let sendData: SendStatus = {
       status_id: statusId
     };
+
     if (statusNote || statusNote === "") {
       sendData.status_note = statusNote;
     }
-    if (lat){
-      sendData.lat = lat;
+
+    if (position){
+      sendData.lat = position.lat;
+      sendData.lng = position.lng;
     }
-    if (lng){
-      sendData.lng = lng;
-    }
+
     return this.post<SimpleDiveraResponse>("v2/using-vehicles/set-status/" + vehicleId, sendData)
   }
 }
