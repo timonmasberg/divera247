@@ -1,6 +1,6 @@
 {
   "name": "divera247-api-unofficial",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Unofficial Divera 24/7 API Wrapper",
   "main": "lib/index.js",
   "scripts": {
