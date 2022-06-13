@@ -1,6 +1,7 @@
 import {BaseClient} from "../../base-client";
 import {SendStatus} from "./send-status.model";
 import {SimpleDiveraResponse} from "../divera-response.model";
+import {VehicleStatus} from "./vehicle-status.model";
 
 export class UsingVehicle extends BaseClient {
   /**
@@ -26,5 +27,9 @@ export class UsingVehicle extends BaseClient {
     }
 
     return this.post<SimpleDiveraResponse>("v2/using-vehicles/set-status/" + vehicleId, sendData)
+  }
+
+  getVehicleStatus(vehicleId: string): Promise<VehicleStatus> {
+    return this.get<VehicleStatus>(`v2/using-vehicles/get-status/${vehicleId}`);
   }
 }
