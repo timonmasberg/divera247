@@ -41,6 +41,6 @@
     "nodemon": "2.0.15",
     "ts-mocha": "9.0.2",
     "ts-node": "10.5.0",
-    "typescript": "4.5.5"
+    "typescript": "4.7.3"
   }
 }
