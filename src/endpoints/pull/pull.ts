@@ -8,7 +8,7 @@ import {Vehicle} from "./models/vehicle.model";
 
 export class Pull extends BaseClient {
   getGroups(returnSorted = false): Promise<Group[]> {
-    return this.get<GroupApiResult>("pull/all")
+    return this.get<GroupApiResult>("v2/pull/all")
       .then(res => res.data)
       .then(data => {
         const group = getPropertyValueByPath<GroupCluster, Groups>(data, "cluster", "group");
@@ -25,7 +25,7 @@ export class Pull extends BaseClient {
   }
 
   getAllByPath<ReturnType>(...keys: string[]): Promise<ReturnType> {
-    return this.get<{ data: any }>("pull/all/")
+    return this.get<{ data: any }>("v2/pull/all/")
       .then(res => res.data)
       .then(data => getPropertyValueByPath<any, ReturnType>(data, ...keys));
   }

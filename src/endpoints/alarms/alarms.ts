@@ -4,11 +4,11 @@ import {DiveraResponse} from "../divera-response.model";
 
 export class Alarms extends BaseClient {
   createAlarm(alarm: CreateAlarm): Promise<DiveraResponse> {
-    return this.post("alarms", alarm)
+    return this.post("v2/alarms", alarm)
   }
 
   deleteAlarm(alarmId: string): Promise<DiveraResponse> {
-    return this.delete("alarms/" + alarmId);
+    return this.delete("v2/alarms/" + alarmId);
   }
 
   closeAlarm(alarmId: string, report = ""): Promise<DiveraResponse> {
@@ -20,7 +20,7 @@ export class Alarms extends BaseClient {
       }
     }
 
-    return this.post("alarms/close/" + alarmId, payload);
+    return this.post("v2/alarms/close/" + alarmId, payload);
   }
 
   archiveAlarm(alarmId: number | string): Promise<DiveraResponse> {
