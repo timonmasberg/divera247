@@ -30,7 +30,7 @@ export class Pull extends BaseClient {
       .then(data => getPropertyValueByPath<any, ReturnType>(data, ...keys));
   }
 
-  getVehicleStatus(): Promise<Vehicle[]>{
+  getAllVehicleStatus(): Promise<Vehicle[]>{
     return this.get<DiveraResponse<Vehicle[]>>("v2/pull/vehicle-status")
       .then(resp => resp.data)
   }
