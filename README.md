@@ -22,12 +22,13 @@ but planned to be.
 - [ ] Pull all
   - [x] Read Groups
   - [x] Read specific value by key
-  - [x] Read vehicle status
+  - [x] Read all vehicles
 - [ ] Messages
   - [ ] Write Messages 
   - [ ] Read Messages
 - [ ] Vehicle
   - [x] Set status
+  - [x] Get status
 ## Getting Started
 
 These instructions will show you how to use this package in your project. If you want to contribute, check
