@@ -13,7 +13,7 @@ export abstract class BaseClient {
   }
 
   static getAccessToken(username: string, password: string): Promise<string> {
-    return axios.get<DiveraResponse>('v2/auth/login', {
+    return axios.get<DiveraResponse>(DIVERA_API_BASE_URL + 'v2/auth/login', {
       data: {
         username,
         password,
