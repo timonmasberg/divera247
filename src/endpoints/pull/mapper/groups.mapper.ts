@@ -8,16 +8,11 @@ export class GroupsMapper extends Mapper<Groups, Group[]> {
   }
 
   getAsMapped(): Group[] {
-    const groups: Group[] = [];
-
-    Object.entries(this._data).forEach(entry => {
-      const [groupId, data] = entry;
+    return Object.entries(this._data).reduce((acc, [groupId, data]) => {
       const group = GroupsMapper.getGroupFromEntry(groupId, data);
-
-      groups.push(group);
-    });
-
-    return groups;
+      acc.push(group);
+      return acc;
+    },  [] as Group[]);
   }
 
   private static getGroupFromEntry(id: string, data: GroupEntry): Group {

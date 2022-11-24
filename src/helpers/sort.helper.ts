@@ -1,4 +1,3 @@
-import {KeyStringObject} from "../endpoints/key-string-object";
 
 /**
  * Sorts an objects by its keys and a provided ranking of keys
@@ -6,10 +5,9 @@ import {KeyStringObject} from "../endpoints/key-string-object";
  * @param {string[]} keyRanking Keys of object where the index of the key represent its order
  * @return Provided object with sorted keys
  */
-export function sortObjectsByKeyRanking<ObjectType extends KeyStringObject>(object: ObjectType, keyRanking: string[]): ObjectType {
+export function sortObjectsByKeyRanking<T extends Record<string, any>>(object: T, keyRanking: string[]): T {
   const objectKeys = Object.keys(object);
 
-  // todo: check how validating might be handleable through type declaration
   if (objectKeys.length !== keyRanking.length) {
     throw new Error('Ranking has to be provided for every key');
   }
@@ -27,5 +25,5 @@ export function sortObjectsByKeyRanking<ObjectType extends KeyStringObject>(obje
       return rankOfA - rankOfB;
     })
     .reduce((r, k) =>
-      Object.assign(r, {[k]: object[k]}), {} as ObjectType);
+      Object.assign(r, {[k]: object[k]}), {} as T);
 }
