@@ -19,6 +19,8 @@ export class AlarmBuilder {
   }
 
   isPriority(): AlarmBuilder {
+    this.alarm.priority = true;
+
     return this;
   }
 
@@ -114,7 +116,7 @@ export class AlarmBuilder {
     return this;
   }
 
-  visibleForNonAlertedUsers(): AlarmBuilder {
+  isVisibleForNonAlertedUsers(): AlarmBuilder {
     this.alarm.notification_filter_access = true;
 
     return this;
