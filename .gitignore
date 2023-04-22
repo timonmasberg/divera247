@@ -1,27 +1,8 @@
-logs
-*.log
-npm-debug.log*
+.env
 
-pids
-*.pid
-*.seed
-
-lib-cov
-
-coverage
-.nyc_output
-coverage.*
-
-node_modules
-
+*.tsbuildinfo
 .npm
-
-.node_repl_history
-
-typings/
-lib
-
-*.map
+.eslintcache
 
 .idea
 *.iml
@@ -29,5 +10,16 @@ lib
 .DS_Store
 Thumbs.db
 
-src/integrations/
+dist
+build
+
+node_modules
+
+*.log
+
+logs
+tmp
+coverage
+
+integration.ts
 

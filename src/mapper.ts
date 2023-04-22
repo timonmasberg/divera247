@@ -1,6 +1,9 @@
-import {sortObjectsByKeyRanking} from "./helpers/sort.helper";
+import { sortObjectsByKeyRanking } from './helpers/sort.helper';
 
-export abstract class Mapper<ApiResultType, MappedType> {
+export abstract class Mapper<
+  ApiResultType extends Record<string, unknown>,
+  MappedType,
+> {
   protected _data: ApiResultType;
 
   protected constructor(data: ApiResultType) {
@@ -8,7 +11,7 @@ export abstract class Mapper<ApiResultType, MappedType> {
   }
 
   sort(keyRanking: string[]): Mapper<ApiResultType, MappedType> {
-    this._data = sortObjectsByKeyRanking(this._data, keyRanking);
+    this._data = sortObjectsByKeyRanking<ApiResultType>(this._data, keyRanking);
     return this;
   }
 

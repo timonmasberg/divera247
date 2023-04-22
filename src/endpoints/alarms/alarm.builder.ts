@@ -1,12 +1,11 @@
-import {AlarmNotificationType} from "./enums/alarm-notification-type.enum";
+import { AlarmNotificationType } from './enums/alarm-notification-type.enum';
 import {
   GroupMapping,
   MappedValue,
   UserMapping,
-  VehicleMapping
-} from "./types/instruction-mapping.types";
-import {Alarm, CreateAlarm, Instructions} from "./models/create-alarm.model";
-
+  VehicleMapping,
+} from './types/instruction-mapping.types';
+import { Alarm, CreateAlarm, Instructions } from './models/create-alarm.model';
 
 export class AlarmBuilder {
   private alarm = {} as Alarm;
@@ -24,7 +23,7 @@ export class AlarmBuilder {
     return this;
   }
 
-  details(title: string, text: string = ""): AlarmBuilder {
+  details(title: string, text = ''): AlarmBuilder {
     this.alarm.title = title;
     this.alarm.text = text;
 
@@ -34,7 +33,7 @@ export class AlarmBuilder {
   foreignId(foreignId: string): AlarmBuilder {
     this.alarm.foreign_id = foreignId;
 
-    return this
+    return this;
   }
 
   address(address: string): AlarmBuilder {
@@ -56,7 +55,7 @@ export class AlarmBuilder {
     if (this.instructions.group?.mapping) {
       this.instructions.group.mapping = mapping;
     } else {
-      this.instructions.group = {mapping}
+      this.instructions.group = { mapping };
     }
 
     return this;
@@ -68,7 +67,7 @@ export class AlarmBuilder {
     if (this.instructions.user_cluster_relation?.mapping) {
       this.instructions.user_cluster_relation.mapping = mapping;
     } else {
-      this.instructions.user_cluster_relation = {mapping}
+      this.instructions.user_cluster_relation = { mapping };
     }
 
     return this;
@@ -80,7 +79,7 @@ export class AlarmBuilder {
     if (this.instructions.vehicle?.mapping) {
       this.instructions.vehicle.mapping = mapping;
     } else {
-      this.instructions.vehicle = {mapping}
+      this.instructions.vehicle = { mapping };
     }
 
     return this;
@@ -125,7 +124,7 @@ export class AlarmBuilder {
   build(): CreateAlarm {
     return {
       Alarm: this.alarm,
-      instructions: this.instructions
+      instructions: this.instructions,
     };
   }
 }

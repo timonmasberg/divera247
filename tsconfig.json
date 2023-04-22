@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
     "declaration": true,
-    "strict": true,
     "esModuleInterop": true,
-    "outDir": "./lib",
-    "moduleResolution": "node"
+    "module": "esnext",
+    "inlineSourceMap": false,
+    "lib": ["esnext"],
+    "target": "esnext",
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true,
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "strict": true,
+    "traceResolution": false,
+    "types": ["node", "jest"],
+    "removeComments": true
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules",
-    "src/**/*.test.ts",
-    "lib"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

@@ -1,6 +1,6 @@
-import {Mapper} from "../../../mapper";
-import {Group} from "../models/group.model";
-import {GroupEntry, Groups} from "../models/group-api-result.model";
+import { Mapper } from '../../../mapper';
+import { Group } from '../models/group.model';
+import { GroupEntry, Groups } from '../models/group-api-data';
 
 export class GroupsMapper extends Mapper<Groups, Group[]> {
   constructor(data: Groups) {
@@ -12,14 +12,14 @@ export class GroupsMapper extends Mapper<Groups, Group[]> {
       const group = GroupsMapper.getGroupFromEntry(groupId, data);
       acc.push(group);
       return acc;
-    },  [] as Group[]);
+    }, [] as Group[]);
   }
 
   private static getGroupFromEntry(id: string, data: GroupEntry): Group {
     return {
       id,
       name: data.name,
-      ric: data.ric
-    }
+      ric: data.ric,
+    };
   }
 }

@@ -1,10 +1,11 @@
-import axios, {AxiosRequestConfig} from "axios";
-import {DiveraResponse} from "./endpoints/divera-response.model";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { DiveraResponse } from './endpoints/divera-response.model';
+import { LoginApiData } from './endpoints/auth/models/login-api-data.model';
 
-const DIVERA_API_BASE_URL = "https://app.divera247.com/api/"
+const DIVERA_API_BASE_URL = 'https://app.divera247.com/api/';
 
 export abstract class BaseClient {
-  private axiosConfig = {} as AxiosRequestConfig;
+  protected readonly axiosConfig = {} as AxiosRequestConfig;
 
   constructor(accessKey: string) {
     this.axiosConfig.params = {
@@ -12,39 +13,111 @@ export abstract class BaseClient {
     };
   }
 
-  static getAccessToken(username: string, password: string): Promise<string> {
-    return axios.get<DiveraResponse>(DIVERA_API_BASE_URL + 'v2/auth/login', {
-      data: {
-        username,
-        password,
-        jwt: false
+  static async getAccessToken(
+    username: string,
+    password: string,
+  ): Promise<string> {
+    const response = await axios.post<DiveraResponse<LoginApiData>>(
+      DIVERA_API_BASE_URL + 'v2/auth/login',
+      {
+        Login: {
+          username,
+          password,
+          jwt: false,
+        },
+      },
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data.data.user.access_token;
+  }
+
+  protected async post<TResponseData = unknown>(
+    resourcePath: string,
+    payload: unknown = {},
+  ): Promise<DiveraResponse<TResponseData>> {
+    return this.getResponseInErrorBoundary(
+      axios.post<DiveraResponse<TResponseData>>(
+        DIVERA_API_BASE_URL + resourcePath,
+        payload,
+        this.axiosConfig,
+      ),
+    );
+  }
+
+  protected get<TResponseData = unknown>(
+    resourcePath: string,
+  ): Promise<DiveraResponse<TResponseData>> {
+    return this.getResponseInErrorBoundary(
+      axios.get<DiveraResponse<TResponseData>>(
+        DIVERA_API_BASE_URL + resourcePath,
+        {
+          ...this.axiosConfig,
+        },
+      ),
+    );
+  }
+
+  protected delete<TResponseData = unknown>(
+    resourcePath: string,
+  ): Promise<DiveraResponse<TResponseData>> {
+    return this.getResponseInErrorBoundary(
+      axios.delete<DiveraResponse<TResponseData>>(
+        DIVERA_API_BASE_URL + resourcePath,
+        this.axiosConfig,
+      ),
+    );
+  }
+
+  protected patch<TResponseData>(
+    resourcePath: string,
+    payload: unknown,
+  ): Promise<DiveraResponse<TResponseData>> {
+    return this.getResponseInErrorBoundary(
+      axios.patch<DiveraResponse<TResponseData>>(
+        DIVERA_API_BASE_URL + resourcePath,
+        payload,
+        this.axiosConfig,
+      ),
+    );
+  }
+
+  protected put<TResponseData>(
+    resourcePath: string,
+    payload: unknown,
+  ): Promise<DiveraResponse<TResponseData>> {
+    return this.getResponseInErrorBoundary(
+      axios.put<DiveraResponse<TResponseData>>(
+        DIVERA_API_BASE_URL + resourcePath,
+        payload,
+        this.axiosConfig,
+      ),
+    );
+  }
+
+  private async getResponseInErrorBoundary<TResponseData>(
+    request: Promise<AxiosResponse<DiveraResponse<TResponseData>>>,
+  ): Promise<DiveraResponse<TResponseData>> {
+    try {
+      const response = await request;
+      return response.data;
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e) && e.response) {
+        return e.response.data;
+      } else if (e instanceof Error) {
+        return {
+          success: false,
+          error: e.message,
+        };
       }
-    }).then(response => response.data.data.user?.access_token);
-  }
 
-  protected post<ResponseType = void>(resourcePath: string, payload: any): Promise<ResponseType> {
-    return axios.post<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
-      .then(((response) => response.data));
-  }
-
-  protected get<ResponseType>(resourcePath: string, data?: {}): Promise<ResponseType> {
-    // Divera has GET endpoints that expect a body :)
-    return axios.get<ResponseType>(DIVERA_API_BASE_URL + resourcePath, {...this.axiosConfig, data})
-      .then(((response) => response.data));
-  }
-
-  protected delete<ResponseType = void>(resourcePath: string): Promise<ResponseType> {
-    return axios.delete<ResponseType>(DIVERA_API_BASE_URL + resourcePath, this.axiosConfig)
-      .then(((response) => response.data));
-  }
-
-  protected patch<ResponseType>(resourcePath: string, payload: any): Promise<ResponseType> {
-    return axios.patch<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
-      .then(((response) => response.data));
-  }
-
-  protected put<ResponseType>(resourcePath: string, payload: any = {}): Promise<ResponseType> {
-    return axios.put<ResponseType>(DIVERA_API_BASE_URL + resourcePath, payload, this.axiosConfig)
-      .then(((response) => response.data));
+      return {
+        success: false,
+        error: 'Unknown Error',
+      };
+    }
   }
 }
