@@ -55,8 +55,10 @@ After installing the package you can use it as shown below.
 Retrieve the access token with user credentials (e.g. with a system user).
 
 ```ts
+import {DiveraClient} from 'divera247-api-unofficial';
+// CJS: const {DiveraClient} = require('divera247-api-unofficial');
 try {
-    const token = DiveraClient.getAccessToken('username', 'password');
+    const token = await DiveraClient.getAccessToken('username', 'password');
 } catch (e) {
     // failed to retreive token
 }
@@ -65,20 +67,21 @@ try {
 ### Declare the client
 
 ```ts
+import {DiveraClient} from 'divera247-api-unofficial';
+// CJS: const {DiveraClient} = require('divera247-api-unofficial');
+
 const diveraClient = new DiveraClient(token);
 ```
 
 ### Pull All (`/v2/pull/all`)
 
-The Divera API is (imo) kind of badly designed in many aspects. E.g. there is an endpoint that returns all the data
-related to an organization. If you want to retrieve specific data, such as groups, you always need to query `/pull/all`
-which returns pretty much everything there is for a tenant.
+The pull all endpoint pretty much delivers everything there is for a tenant. This package includes some helpers to extract the data you need.
 
 <b>Read specific data</b><br>
 Provide the path of the specific property you want to extract from the `/pull/all` response.
 
 ```ts
-const {data: {user}} = (await diveraClient.getAllByPath)<{
+const {data: {user}} = await diveraClient.getAllByPath<{
   firstname: string;
   lastname: string;
 }>('cluster', 'user');
