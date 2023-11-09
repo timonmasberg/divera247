@@ -8,9 +8,8 @@ import { Vehicle } from './models/vehicle.model';
 
 export class Pull extends BaseClient {
   async getGroups(returnSorted = false): Promise<DiveraResponse<Group[]>> {
-    const response = await this.get<DiveraResponse<GroupCluster>>(
-      'v2/pull/all',
-    );
+    const response =
+      await this.get<DiveraResponse<GroupCluster>>('v2/pull/all');
 
     if (!response.success) {
       return response;
