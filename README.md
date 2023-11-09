@@ -14,7 +14,7 @@ but planned to be. Contributions are welcome!
 - [ ] Alarm
   - [x] Create Alarm
   - [x] Read all Alarms
-  - [ ] Read Alarm
+  - [x] Read Alarm
   - [x] Delete Alarm
   - [x] Close Alarm
   - [ ] Alarm User Responses
@@ -147,6 +147,7 @@ const alarm = new AlarmBuilder()
 
 ```ts
 const alarms = await diveraClient.getAlarms();
+const alarm = await diveraClient.getAlarm("alarm id");
 ```
 
 <b>Create, Close, Archive and Delete an Alarm</b>
@@ -183,7 +184,7 @@ await diveraClient.setVehicleStatus(
 
 ### Error handling
 
-The package is non throwing for requests. Every error will be represented as a `DiveraResponse`. The success is indicated with the `success` property.
+The package is non throwing for requests (except for `getAccessToken`). Every error will be represented as a `DiveraResponse`. The success is indicated with the `success` property.
 An error response is equivalent to the response from Divera. If the errors origin is the package, the `error` property will contain the error message.
 
 ## Contributing

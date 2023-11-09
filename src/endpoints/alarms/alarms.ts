@@ -1,12 +1,11 @@
 import { BaseClient } from '../../base-client';
-import { CreateAlarm, GetAlarm } from './models/create-alarm.model';
+import { CreateAlarm } from './models/create-alarm.model';
 import { DiveraResponse } from '../divera-response.model';
-import { CreateAlarmResponseData } from './models/create-alarm-response-data.model';
+import { Alarm } from './models/alarm.model';
+import { GetAlarms } from './models/get-alarm.model';
 
 export class Alarms extends BaseClient {
-  createAlarm(
-    alarm: CreateAlarm,
-  ): Promise<DiveraResponse<CreateAlarmResponseData>> {
+  createAlarm(alarm: CreateAlarm): Promise<DiveraResponse<Alarm>> {
     return this.post('v2/alarms', alarm);
   }
 
@@ -35,7 +34,11 @@ export class Alarms extends BaseClient {
     return this.post(`v2/alarms/archive/${alarmId}`);
   }
 
-  getAlarms(): Promise<DiveraResponse<GetAlarm>> {
+  getAlarms(): Promise<DiveraResponse<GetAlarms>> {
     return this.get('v2/alarms');
+  }
+
+  getAlarm(alarmId: string): Promise<DiveraResponse<Alarm>> {
+    return this.get(`v2/alarms/${alarmId}`);
   }
 }

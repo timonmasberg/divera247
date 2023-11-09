@@ -5,51 +5,51 @@ import {
   UserMapping,
   VehicleMapping,
 } from './types/instruction-mapping.types';
-import { Alarm, CreateAlarm, Instructions } from './models/create-alarm.model';
+import { CreateAlarm, Instructions } from './models/create-alarm.model';
 
 export class AlarmBuilder {
-  private alarm = {} as Alarm;
+  private alarm = {} as CreateAlarm['Alarm'];
   private instructions = {} as Instructions;
 
-  notificationType(type: AlarmNotificationType): AlarmBuilder {
+  notificationType(type: AlarmNotificationType): this {
     this.alarm.notification_type = type;
 
     return this;
   }
 
-  isPriority(): AlarmBuilder {
+  isPriority(): this {
     this.alarm.priority = true;
 
     return this;
   }
 
-  details(title: string, text = ''): AlarmBuilder {
+  details(title: string, text = ''): this {
     this.alarm.title = title;
     this.alarm.text = text;
 
     return this;
   }
 
-  foreignId(foreignId: string): AlarmBuilder {
+  foreignId(foreignId: string): this {
     this.alarm.foreign_id = foreignId;
 
     return this;
   }
 
-  address(address: string): AlarmBuilder {
+  address(address: string): this {
     this.alarm.address = address;
 
     return this;
   }
 
-  coordinates(lat: number, lng: number): AlarmBuilder {
+  coordinates(lat: number, lng: number): this {
     this.alarm.lat = lat;
     this.alarm.lng = lng;
 
     return this;
   }
 
-  groups(values: MappedValue[], mapping: GroupMapping): AlarmBuilder {
+  groups(values: MappedValue[], mapping: GroupMapping): this {
     this.alarm.group = values;
 
     if (this.instructions.group?.mapping) {
@@ -61,7 +61,7 @@ export class AlarmBuilder {
     return this;
   }
 
-  users(values: MappedValue[], mapping: UserMapping): AlarmBuilder {
+  users(values: MappedValue[], mapping: UserMapping): this {
     this.alarm.user_cluster_relation = values;
 
     if (this.instructions.user_cluster_relation?.mapping) {
@@ -73,7 +73,7 @@ export class AlarmBuilder {
     return this;
   }
 
-  vehicles(values: MappedValue[], mapping: VehicleMapping): AlarmBuilder {
+  vehicles(values: MappedValue[], mapping: VehicleMapping): this {
     this.alarm.vehicle = values;
 
     if (this.instructions.vehicle?.mapping) {
@@ -85,37 +85,37 @@ export class AlarmBuilder {
     return this;
   }
 
-  sendSMS(): AlarmBuilder {
+  sendSMS(): this {
     this.alarm.send_sms = true;
 
     return this;
   }
 
-  sendPush(): AlarmBuilder {
+  sendPush(): this {
     this.alarm.send_push = true;
 
     return this;
   }
 
-  sendCall(): AlarmBuilder {
+  sendCall(): this {
     this.alarm.send_call = true;
 
     return this;
   }
 
-  sendPager(): AlarmBuilder {
+  sendPager(): this {
     this.alarm.send_pager = true;
 
     return this;
   }
 
-  sendMail(): AlarmBuilder {
+  sendMail(): this {
     this.alarm.send_mail = true;
 
     return this;
   }
 
-  isVisibleForNonAlertedUsers(): AlarmBuilder {
+  isVisibleForNonAlertedUsers(): this {
     this.alarm.notification_filter_access = true;
 
     return this;

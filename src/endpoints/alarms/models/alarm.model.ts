@@ -1,4 +1,4 @@
-export interface CreateAlarmResponseData {
+export interface Alarm {
   id: number;
   foreign_id: string;
   author_id: number;
