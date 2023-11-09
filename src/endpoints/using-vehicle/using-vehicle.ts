@@ -16,7 +16,7 @@ export class UsingVehicle extends BaseClient {
     statusId: number,
     statusNote?: string,
     position?: { lat: number; lng: number },
-  ): Promise<DiveraResponse> {
+  ): Promise<DiveraResponse<Record<string, never>>> {
     const sendData: SendStatus = {
       status_id: statusId,
     };
@@ -30,10 +30,7 @@ export class UsingVehicle extends BaseClient {
       sendData.lng = position.lng;
     }
 
-    return this.post<DiveraResponse>(
-      `v2/using-vehicles/set-status/${vehicleId}`,
-      sendData,
-    );
+    return this.post(`v2/using-vehicles/set-status/${vehicleId}`, sendData);
   }
 
   getVehicleStatus(
