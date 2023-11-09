@@ -29,7 +29,11 @@ export abstract class BaseClient {
     );
 
     if (!response.data.success) {
-      throw new Error(response.data.error);
+      throw new Error(
+        `Fehler ${response.data.error}. ${(
+          response.data.errors as string[]
+        ).join(', ')}.`,
+      );
     }
 
     return response.data.data.user.access_token;

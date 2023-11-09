@@ -7,5 +7,5 @@ export type DiveraResponse<T = unknown> =
   | {
       success: false;
       error: string;
-      errors?: Record<string, string[]>;
+      errors?: Record<string, string[]> | string[];
     };
