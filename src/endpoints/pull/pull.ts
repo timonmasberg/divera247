@@ -40,7 +40,7 @@ export class Pull extends BaseClient {
   async getAllByPath<ReturnType = unknown>(
     ...keys: string[]
   ): Promise<DiveraResponse<ReturnType>> {
-    const response = await this.get<{ data: unknown }>('v2/pull/all/');
+    const response = await this.get<{ data: unknown }>('v2/pull/all');
 
     if (!response.success) {
       return response;

@@ -7,7 +7,7 @@ export class Auth extends BaseClient {
     username: string,
     password: string,
   ): Promise<DiveraResponse<LoginApiData>> {
-    return this.post<LoginApiData>('v2/auth/login/', {
+    return this.post<LoginApiData>('v2/auth/login', {
       Login: {
         username,
         password,
