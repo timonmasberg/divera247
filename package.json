@@ -43,8 +43,8 @@
     "axios": "^1.6.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.2.0",
-    "@commitlint/config-conventional": "^18.1.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@types/axios": "0.14.0",
     "@types/jest": "^29.5.8",
     "@types/node": "20.11.20",
