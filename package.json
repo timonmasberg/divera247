@@ -46,7 +46,7 @@
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@types/axios": "0.14.4",
-    "@types/jest": "^29.5.8",
+    "@types/jest": "^30.0.0",
     "@types/node": "22.15.32",
     "@typescript-eslint/eslint-plugin": "8.34.1",
     "@typescript-eslint/parser": "8.34.1",
